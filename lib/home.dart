@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
               ),
               SizedBox(height: 50),
               Text('Nama: Wafid Adzka Haifan Mukhayyar'),
-              Text('NPM: 714220011'),
+              Text('NPM: 714220014'),
             ],
           ),
         ),
