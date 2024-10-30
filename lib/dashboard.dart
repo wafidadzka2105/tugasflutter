@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'detail_penjualan.dart'; // Pastikan Anda membuat dan mengimpor halaman detail ini
 
 class DashboardPage extends StatelessWidget {
   final List<Map<String, String>> salesData = [
     {
       'no_faktur': '001',
       'tanggal': '2024-11-01',
-      'nama_customer': 'Customer Agus',
+      'nama_customer': 'Surya',
       'jumlah_barang': '10',
       'total_penjualan': 'Rp 1,000,000',
     },
     {
       'no_faktur': '002',
       'tanggal': '2024-10-05',
-      'nama_customer': 'Customer Budi',
+      'nama_customer': 'Caca',
       'jumlah_barang': '5',
       'total_penjualan': 'Rp 900,000',
     },
     {
       'no_faktur': '003',
       'tanggal': '2024-09-10',
-      'nama_customer': 'Customer Caca',
+      'nama_customer': 'Agung',
       'jumlah_barang': '7',
       'total_penjualan': 'Rp 800,000',
     },
@@ -29,17 +30,17 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dashboard'),
+        title: const Text('Dashboard'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Welcome to Dashboard'),
-            SizedBox(height: 20),
+            const Text('Welcome to Dashboard'),
+            const SizedBox(height: 20),
             Expanded(
               child: DataTable(
-                columns: [
+                columns: const [
                   DataColumn(label: Text('No Faktur')),
                   DataColumn(label: Text('Tanggal')),
                   DataColumn(label: Text('Nama Customer')),
@@ -48,13 +49,28 @@ class DashboardPage extends StatelessWidget {
                 ],
                 rows: salesData
                     .map(
-                      (sale) => DataRow(cells: [
-                        DataCell(Text(sale['no_faktur']!)),
-                        DataCell(Text(sale['tanggal']!)),
-                        DataCell(Text(sale['nama_customer']!)),
-                        DataCell(Text(sale['jumlah_barang']!)),
-                        DataCell(Text(sale['total_penjualan']!)),
-                      ]),
+                      (sale) => DataRow(
+                        cells: [
+                          DataCell(Text(sale['no_faktur']!), onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailPenjualanPage(
+                                  noFaktur: sale['no_faktur']!,
+                                  tanggal: sale['tanggal']!,
+                                  namaCustomer: sale['nama_customer']!,
+                                  jumlahBarang: sale['jumlah_barang']!,
+                                  totalPenjualan: sale['total_penjualan']!,
+                                ),
+                              ),
+                            );
+                          }),
+                          DataCell(Text(sale['tanggal']!)),
+                          DataCell(Text(sale['nama_customer']!)),
+                          DataCell(Text(sale['jumlah_barang']!)),
+                          DataCell(Text(sale['total_penjualan']!)),
+                        ],
+                      ),
                     )
                     .toList(),
               ),
@@ -63,7 +79,7 @@ class DashboardPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Kembali'),
+              child: const Text('Kembali'),
             ),
           ],
         ),
